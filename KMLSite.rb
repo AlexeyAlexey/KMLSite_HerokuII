@@ -4,20 +4,21 @@ require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
-
+path = File.expand_path('../KMLSite.rb', __FILE__)
 Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
 
+set :app_file, __FILE__
 
 configure do
       enable :logging, :sessions
 
-      file = File.new("./log/sinatra.log", 'a+')
+      file = File.new(path + "/log/sinatra.log", 'a+')
       file.sync = true
       use Rack::CommonLogger, file
 
 end
 
-set :app_file, __FILE__
+
 
 error do
   'Sorry there was a nasty error - ' + env['sinatra.error'].name
@@ -27,7 +28,7 @@ not_found do
   'This is nowhere to be found.'
 end
 
-ActiveRecord::Base.establish_connection YAML.load_file('./config/database.yml')
+ActiveRecord::Base.establish_connection YAML.load_file(path + "/config/database.yml")
   
   
 class GpsDate < ActiveRecord::Base
