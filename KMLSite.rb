@@ -12,9 +12,9 @@ set :app_file, __FILE__
 configure do
       enable :logging, :sessions
 
-      file = File.new(path + "/log/sinatra.log", 'a+')
-      file.sync = true
-      use Rack::CommonLogger, file
+      #file = File.new(path + "/log/sinatra.log", 'a+')
+      #file.sync = true
+      #use Rack::CommonLogger, file
 
 end
 
