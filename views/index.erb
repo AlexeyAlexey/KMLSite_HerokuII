@@ -1,7 +1,16 @@
+<% if message %> 
+<p> <%= message %> </p>
+<% else %>
 
 <iframe src="/views/googlmaps" width="600" height="600" align="right">
     Ваш браузер не поддерживает плавающие фреймы!
 </iframe>
+
+<% end %>
+       
+
+
+
 
 
 <form method="post" action="/input">
@@ -11,9 +20,12 @@
    
 </form>
 
-<form method="post" enctype="multipart/form-data" action="/load">
-      
-      <input type="file" name="fixes">
-      <input type="submit">
+
+<form method="get" action="/">
+ <p> Выберите дату (формат: год-месяц-число):</p>
+ <p>
+  <input type="date" name="calendar" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+  <input type="submit" value="Отправить">
+ </p>
 </form>
 

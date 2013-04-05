@@ -1,0 +1,70 @@
+/home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:526:in `start_server'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/base.rb:55:in `block in start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `call'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `run_machine'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `run'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/base.rb:63:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/server.rb:159:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/handler/thin.rb:16:in `run'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/server.rb:264:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/server.rb:141:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/bin/rackup:4:in `<top (required)>'
+	from /home/alexey/rubystack-1.9.3-5/ruby/bin/rackup:23:in `load'
+	from /home/alexey/rubystack-1.9.3-5/ruby/bin/rackup:23:in `<main>'
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9398, CTRL+C to stop
+/home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:526:in `start_server'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/base.rb:55:in `block in start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `call'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `run_machine'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/eventmachine-1.0.0/lib/eventmachine.rb:187:in `run'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/backends/base.rb:63:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/thin-1.4.1/lib/thin/server.rb:159:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/handler/thin.rb:16:in `run'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/server.rb:264:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/lib/rack/server.rb:141:in `start'
+	from /home/alexey/rubystack-1.9.3-5/ruby/lib/ruby/gems/1.9.1/gems/rack-1.5.2/bin/rackup:4:in `<top (required)>'
+	from /home/alexey/rubystack-1.9.3-5/ruby/bin/rackup:23:in `load'
+	from /home/alexey/rubystack-1.9.3-5/ruby/bin/rackup:23:in `<main>'
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9298, CTRL+C to stop
+127.0.0.1 - - [06/Apr/2013 00:07:34] "GET / HTTP/1.1" 200 677 0.0701
+127.0.0.1 - - [06/Apr/2013 00:07:34] "GET /favicon.ico HTTP/1.1" 404 448 0.0025
+127.0.0.1 - - [06/Apr/2013 00:07:37] "GET /?calendar= HTTP/1.1" 200 677 0.0094
+127.0.0.1 - - [06/Apr/2013 00:07:37] "GET /favicon.ico HTTP/1.1" 404 448 0.0027
+127.0.0.1 - - [06/Apr/2013 00:07:42] "GET /?calendar=2013-04-06 HTTP/1.1" 200 700 1.6764
+127.0.0.1 - - [06/Apr/2013 00:07:42] "GET /favicon.ico HTTP/1.1" 404 448 0.0025
+127.0.0.1 - - [06/Apr/2013 00:09:11] "GET / HTTP/1.1" 200 677 0.0072
+127.0.0.1 - - [06/Apr/2013 00:09:11] "GET /favicon.ico HTTP/1.1" 404 448 0.0026
+127.0.0.1 - - [06/Apr/2013 00:09:12] "GET /?calendar= HTTP/1.1" 200 677 0.0063
+127.0.0.1 - - [06/Apr/2013 00:09:13] "GET /favicon.ico HTTP/1.1" 404 448 0.0034
+127.0.0.1 - - [06/Apr/2013 00:09:22] "GET /kkk HTTP/1.1" 404 440 0.0032
+127.0.0.1 - - [06/Apr/2013 00:09:22] "GET /__sinatra__/404.png HTTP/1.1" 200 - 0.2771
+127.0.0.1 - - [06/Apr/2013 00:09:22] "GET /favicon.ico HTTP/1.1" 404 448 0.0056
+127.0.0.1 - - [06/Apr/2013 00:10:24] "GET / HTTP/1.1" 200 677 0.0515
+127.0.0.1 - - [06/Apr/2013 00:10:25] "GET /favicon.ico HTTP/1.1" 404 448 0.0026
+127.0.0.1 - - [06/Apr/2013 00:10:30] "GET /lll HTTP/1.1" 404 440 0.0032
+127.0.0.1 - - [06/Apr/2013 00:10:30] "GET /__sinatra__/404.png HTTP/1.1" 200 - 0.0227
+127.0.0.1 - - [06/Apr/2013 00:10:30] "GET /favicon.ico HTTP/1.1" 404 448 0.0028
+127.0.0.1 - - [06/Apr/2013 00:13:42] "GET / HTTP/1.1" 200 677 0.0438
+127.0.0.1 - - [06/Apr/2013 00:13:42] "GET /favicon.ico HTTP/1.1" 404 28 0.0027
+127.0.0.1 - - [06/Apr/2013 00:13:47] "GET /jjjj HTTP/1.1" 404 28 0.0021
+127.0.0.1 - - [06/Apr/2013 00:13:47] "GET /favicon.ico HTTP/1.1" 404 28 0.0024
+127.0.0.1 - - [06/Apr/2013 00:14:31] "GET / HTTP/1.1" 200 677 0.0086
+127.0.0.1 - - [06/Apr/2013 00:14:31] "GET /favicon.ico HTTP/1.1" 404 28 0.0028
+127.0.0.1 - - [06/Apr/2013 00:14:38] "GET /sinatralog HTTP/1.1" 200 - 0.0019
+127.0.0.1 - - [06/Apr/2013 00:14:38] "GET /favicon.ico HTTP/1.1" 404 28 0.0020
+127.0.0.1 - - [06/Apr/2013 00:14:44] "GET /sinatralog HTTP/1.1" 200 - 0.0027
+127.0.0.1 - - [06/Apr/2013 00:14:44] "GET /favicon.ico HTTP/1.1" 404 28 0.0024
+127.0.0.1 - - [06/Apr/2013 00:15:37] "GET /sinatralog HTTP/1.1" 200 - 0.0132
+127.0.0.1 - - [06/Apr/2013 00:15:37] "GET /favicon.ico HTTP/1.1" 404 28 0.0025
+127.0.0.1 - - [06/Apr/2013 00:15:41] "GET /sinatralog HTTP/1.1" 200 - 0.0019
+127.0.0.1 - - [06/Apr/2013 00:15:41] "GET /favicon.ico HTTP/1.1" 404 28 0.0023
+127.0.0.1 - - [06/Apr/2013 00:17:50] "GET /sinatralog HTTP/1.1" 200 6255 0.0388
+127.0.0.1 - - [06/Apr/2013 00:17:50] "GET /favicon.ico HTTP/1.1" 404 28 0.0028

@@ -2,31 +2,70 @@ require "sinatra"
 require 'json'
 require 'erb'
 require 'active_record'
+require 'yaml'
+require 'fileutils'
 
-set :app_file, __FILE__
 Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
 
-ActiveRecord::Base.establish_connection(#YAML.load_file('db.yaml')
-                    :adapter  => "mysql2",
-                    :encoding => "utf8",
-                    :host     => "127.0.0.1",
-                    :username => "root",
-                    :password => "18281828",
-                    :database => "KMLSite"
-)
+
+configure do
+      enable :logging, :sessions
+
+      file = File.new("./log/sinatra.log", 'a+')
+      file.sync = true
+      use Rack::CommonLogger, file
+
+end
+
+set :app_file, __FILE__
+
+error do
+  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+end
+
+not_found do
+  'This is nowhere to be found.'
+end
+
+ActiveRecord::Base.establish_connection YAML.load_file('./config/database.yml')
   
   
 class GpsDate < ActiveRecord::Base
 end
 
-#:app_file - main application file
-
-
 get '/' do
 
-  erb :index, :layout => true
+   if !(params[:calendar] =~ /\d{4}-\d{2}-\d{2}/)
+     then return erb :index, :layout => true, :locals => {:message => "Enter data"} 
+   end 
+   #convert time in unix without time 
+   setTime = params[:calendar]
+  
+   begin
+      setTime_Date = Time.parse setTime #Years Month Day
+      setTime_DateUnix = setTime_Date.to_i #date in Unix format
+   rescue => ex # ссылается на обрабатываемый объект Exception
+      return erb :index, :layout => true, :locals => {:message => "#{ex.class}: #{ex.message}"}
+   end 
 
+   #check out record db
+   if !GpsDate.where(:date_fix => setTime_DateUnix).exists? 
+     then return erb :index, :layout => true, :locals => {:message => ("The date is not exist: " + params[:calendar])}  
+   end
+
+   session[:calendar] = setTime_DateUnix
+   
+   erb :index, :layout => true, :locals => {:message => false}
+   
+  
 end
+
+
+
+get '/maps' do
+end
+
+
 
 get '/views/googlmaps' do
 
@@ -34,20 +73,23 @@ erb :googlmaps, :layout => false
 
 end
 
+
+
 get '/kml' do
 
  
- strBody = ERB.new(File.read 'load/kml.kml')
+ strBody = ERB.new(File.read 'load/kml.erb')
  
- @localTime = (Time.now).to_i
-  
+ @gpsData = GpsDate.where(:date_fix => session[:calendar]) #send to kml.kml file (get '/kml')
+ @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
+ #head file
  content_type 'application/vnd.google-earth.km'
  attachment 'kml'
- body= strBody.result
+
+ body = strBody.result(binding)
 
  
 end
-
 
 
 
@@ -59,12 +101,9 @@ post '/input' do
    return "#{ex.class}: #{ex.message}"
  end
 
-#erb :result, :layout => true, :locals => { :fixes => params[:fixes] }
+
  view_url = 'http://jgps.me/l/tokentokentoken'
 
- #message = Proc.new do |time, view_url, error| 
-  #  [{"fix_tlist" => time}, { "meta" => {"view_url" => view_url}},"error" => nil].to_json
- #end
 
  message = lambda do |time, view_url, error|              
               
@@ -96,52 +135,57 @@ post '/input' do
    then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
  end 
 
+ data = jsonDate["data"]
+#convert time in unix without time 
+ t_i = Time.at data["t_i"]
+ t_i_Date = Time.parse t_i.strftime("%Y/%m/%d") 
+ t_i_DateUnix = t_i_Date.to_i #date in Unix format
 
- dateGPS = Gps_Dates.new do |gps|
-   gps.al_z = jsonDate["data"]["al"].to_f
-   gps.l_x =  jsonDate["data"]["l"][0].to_f
-   gps.l_y =  jsonDate["data"]["l"][1].to_f
-   gps.t =    jsonDate["data"]["t"].to_i
-   gps.t_i =  jsonDate["data"]["t_i"].to_i
-   gps.al =   jsonDate["data"]["al"].to_f
-   gps.vv_0 = jsonDate["data"]["vv"][0].to_f
-   gps.vv_1 = jsonDate["data"]["vv"][1].to_f
-   gps.ha =   jsonDate["data"]["ha"]
-   gps.va =   jsonDate["data"]["va"]
+ 
+#convert time in unix without time
+#date of fix in db
+ date_fix = Time.now 
+ date_fix_Date = Time.parse date_fix.strftime("%Y/%m/%d") #Years Month Day
+ date_fix_DateUnix = date_fix_Date.to_i #date in Unix format
+
+
+ dateGPS = GpsDate.new do |gps|
+   gps.al_z     = data["al"].to_f
+   gps.l_x      = data["l"][0].to_f
+   gps.l_y      = data["l"][1].to_f
+   gps.t        = data["t"].to_i
+   gps.t_i      = data["t_i"].to_i
+   gps.al       = data["al"].to_f
+   gps.vv_0     = data["vv"][0].to_f
+   gps.vv_1     = data["vv"][1].to_f
+   gps.ha       = data["ha"]
+   gps.va       = data["va"]
+   gps.t_i_date = t_i_DateUnix
+   gps.date_fix = date_fix_DateUnix
  end
 
- dateGPS.save
+begin
+   dateGPS.save
+ rescue => ex # ссылается на обрабатываемый объект Exception
+   return "#{ex.class}: #{ex.message}"
+ end
 
-return body= message.call(jsonDate["data"]["t"], view_url, nil)
+ 
+
+return body = message.call(jsonDate["data"]["t"], view_url, nil)
 #Get json with coordinate
-
 #This input method takes JSON data directly in a param named fixes
-
-
 #get http://mine-track.appspot.com/get/kml
 
 end
 
-post '/load' do
+get '/sinatralog' do
 
-
-  #fileDir = File.expand_path('../KMLSite.rb', __FILE__)
-  #fileDir = File.dirname(fileDir) + "/load/"
-
-  #File.open(fileDir + params['loadfile'][:filename], "w") do |f|
-    #f.write(params['loadfile'][:tempfile].read)
-  #end
- 
-#erb :kml, :layout => true, :locals => { :loadfile => params['fixes'][:tempfile] } 
- return "The file was successfully uploaded! #{params[:fixes]}"
- 
+ return File.open('./log/sinatra.log').read
 
 end
 
-get '/result' do
 
 
 
-
-end
 
