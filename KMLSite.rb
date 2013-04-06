@@ -7,7 +7,7 @@ require 'yaml'
 require 'fileutils'
 
 #Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
-
+set :root, './'
 set :app_file, __FILE__
 
 configure do
