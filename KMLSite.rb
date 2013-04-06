@@ -1,10 +1,12 @@
+path = File.dirname File.expand_path('../KMLSite.rb', __FILE__)
+require path
 require "sinatra"
 require 'json'
 require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
-path = File.dirname File.expand_path('../KMLSite.rb', __FILE__)
+
 Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
 
 set :app_file, __FILE__
@@ -78,7 +80,7 @@ end
 
 get '/kml' do
 
- 
+ #File.open('public/index.html', File::RDONLY)
  strBody = ERB.new(File.read './load/kml.erb')
  
  @gpsData = GpsDate.where(:date_fix => session[:calendar]) #send to kml.kml file (get '/kml')
