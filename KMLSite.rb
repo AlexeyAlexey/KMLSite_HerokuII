@@ -22,7 +22,7 @@ end
 
 
 error do
-  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+  'Sorry there was a nasty error - ' #+ env['sinatra.error'].name
 end
 
 not_found do
