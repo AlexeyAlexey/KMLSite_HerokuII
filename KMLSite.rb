@@ -6,7 +6,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
-Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
+#Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
 
 set :app_file, __FILE__
 
