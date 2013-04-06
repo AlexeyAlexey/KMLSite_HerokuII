@@ -79,7 +79,7 @@ end
 get '/kml' do
 
  
- strBody = ERB.new(File.read 'load/kml.erb')
+ strBody = ERB.new(File.read './load/kml.erb')
  
  @gpsData = GpsDate.where(:date_fix => session[:calendar]) #send to kml.kml file (get '/kml')
  @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
