@@ -7,4 +7,5 @@ gem 'fileutils'
 gem 'json'
 gem 'activerecord'
 gem 'fileutils'
+gem 'erd'
 
