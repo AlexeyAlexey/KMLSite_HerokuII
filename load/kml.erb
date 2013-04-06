@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>My Tracker</name>
+    <description>Google Latitude by yourself</description>
+    <Style id="blueline">
+      <LineStyle>
+        <color>ffff0000</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
+    <Placemark>
+      <name>Line Track</name>
+      <description>your object on track</description>
+      <styleUrl>#blueline</styleUrl>
+      <LineString>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>
+<% @gpsData.each do |cord|%>
+<%= "#{cord.l_x}, #{cord.l_y}, #{cord.al_z}" %>
+<% end %>
+        </coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>Point</name>
+      <description><%= "Date fix: #{@markEndPoint.date_fix}" %></description>
+      <Point>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>
+<%= "#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z}" %>
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
