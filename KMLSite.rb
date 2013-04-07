@@ -59,36 +59,37 @@ end
 
 get '/kml' do
 
+   content_type 'application/vnd.google-earth.km'
+   attachment 'kml'
+
    constCountR = 10
    countR = GpsDate.count  
    
 
    if countR == 0
      then strERB = File.open('./load/kml2.erb', File::RDONLY).read
-     else strERB = File.open('./load/kml.erb', File::RDONLY).read
+          strBody = ERB.new strERB   
+          body = strBody.result(binding)
+               
+   else
+
+        lastR = GpsDate.last
+
+        if  countR < constCountR
+          then constCountR = countR
+        end    
+   
+        countR = lastR.id - constCountR 
+ 
+ 
+        @gpsData = GpsDate.last(countR) #send to kml.kml file (get '/kml')
+        @markEndPoint = lastR #send to kml.kml file (get '/kml')
+        #head file
+ 
+        strERB = File.open('./load/kml.erb', File::RDONLY).read
+        strBody = ERB.new strERB   
+        body = strBody.result(binding)
    end
-
-   lastR = GpsDate.last
-
-   if  countR < constCountR
-     then constCountR = countR
-   end    
-   
-   countR = lastR.id - constCountR 
- 
- 
-   @gpsData = GpsDate.last(countR) #send to kml.kml file (get '/kml')
-   @markEndPoint = lastR #send to kml.kml file (get '/kml')
-   #head file
- 
-   
-   strBody = ERB.new strERB
- 
-
-   content_type 'application/vnd.google-earth.km'
-   attachment 'kml'
-   body = strBody.result(binding)
-
  
 end
 
