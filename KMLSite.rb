@@ -61,7 +61,7 @@ get '/kml' do
 
    constCountR = 10
    countR = GpsDate.count  
-   lastR = GpsDate.last.id
+   lastR = GpsDate.last
 
    if countR == 0
      then return erb :index, :layout => true, :locals => {:message => ("Count records are 0")}
@@ -71,11 +71,11 @@ get '/kml' do
      then constCountR = countR
    end    
    
-   countR = lastR - constCountR 
+   countR = lastR.id - constCountR 
  
  
    @gpsData = GpsDate.last(countR) #send to kml.kml file (get '/kml')
-   @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
+   @markEndPoint = lastR #send to kml.kml file (get '/kml')
    #head file
  
    strERB = File.open('./load/kml.erb', File::RDONLY).read
