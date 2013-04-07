@@ -22,7 +22,7 @@ end
 
 
 error do
-  'Sorry there was a nasty error - ' #+ env['sinatra.error'].name
+  'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end
 
 not_found do
@@ -36,27 +36,7 @@ class GpsDate < ActiveRecord::Base
 end
 
 get '/' do
-
-   if !(params[:calendar] =~ /\d{4}-\d{2}-\d{2}/)
-     then return erb :index, :layout => true, :locals => {:message => "Enter data"} 
-   end 
-   #convert time in unix without time 
-   setTime = params[:calendar]
   
-   begin
-      setTime_Date = Time.parse setTime #Years Month Day
-      setTime_DateUnix = setTime_Date.to_i #date in Unix format
-   rescue => ex # ссылается на обрабатываемый объект Exception
-      return erb :index, :layout => true, :locals => {:message => "#{ex.class}: #{ex.message}"}
-   end 
-
-   #check out record db
-   if !GpsDate.where(:date_fix => setTime_DateUnix).exists? 
-     then return erb :index, :layout => true, :locals => {:message => ("The date is not exist: " + params[:calendar])}  
-   end
-
-   session[:calendar] = setTime_DateUnix
-   
    erb :index, :layout => true, :locals => {:message => false}
    
   
@@ -79,19 +59,32 @@ end
 
 get '/kml' do
 
+   constCountR = 10
+   countR = GpsDate.count  
+   lastR = GpsDate.last.id
+
+   if countR == 0
+     then return erb :index, :layout => true, :locals => {:message => ("Count records are 0")}
+   end
+
+   if  countR < constCountR
+     then constCountR = countR
+   end    
+   
+   countR = lastR - constCountR 
  
  
- @gpsData = GpsDate.where(:date_fix => session[:calendar]) #send to kml.kml file (get '/kml')
- @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
- #head file
+   @gpsData = GpsDate.last(countR) #send to kml.kml file (get '/kml')
+   @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
+   #head file
  
- strERB = File.open('./load/kml.erb', File::RDONLY).read
- strBody = ERB.new strERB
+   strERB = File.open('./load/kml.erb', File::RDONLY).read
+   strBody = ERB.new strERB
  
 
- content_type 'application/vnd.google-earth.km'
- attachment 'kml'
- body = strBody.result(binding)
+   content_type 'application/vnd.google-earth.km'
+   attachment 'kml'
+   body = strBody.result(binding)
 
  
 end
