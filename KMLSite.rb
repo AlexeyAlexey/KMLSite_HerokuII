@@ -61,11 +61,14 @@ get '/kml' do
 
    constCountR = 10
    countR = GpsDate.count  
-   lastR = GpsDate.last
+   
 
    if countR == 0
-     then return erb :index, :layout => true, :locals => {:message => ("Count records are 0")}
+     then strERB = File.open('./load/kml2.erb', File::RDONLY).read
+     else strERB = File.open('./load/kml.erb', File::RDONLY).read
    end
+
+   lastR = GpsDate.last
 
    if  countR < constCountR
      then constCountR = countR
@@ -78,7 +81,7 @@ get '/kml' do
    @markEndPoint = lastR #send to kml.kml file (get '/kml')
    #head file
  
-   strERB = File.open('./load/kml.erb', File::RDONLY).read
+   
    strBody = ERB.new strERB
  
 
