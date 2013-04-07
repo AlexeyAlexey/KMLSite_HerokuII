@@ -79,15 +79,18 @@ end
 
 get '/kml' do
 
- #File.open('public/index.html', File::RDONLY)
- strBody = ERB.new(File.read './load/kml.erb')
+ 
  
  @gpsData = GpsDate.where(:date_fix => session[:calendar]) #send to kml.kml file (get '/kml')
  @markEndPoint = @gpsData.last #send to kml.kml file (get '/kml')
  #head file
+ 
+ strERB = File.open('./load/kml.erb', File::RDONLY).read
+ strBody = ERB.new strERB
+ 
+
  content_type 'application/vnd.google-earth.km'
  attachment 'kml'
-
  body = strBody.result(binding)
 
  
