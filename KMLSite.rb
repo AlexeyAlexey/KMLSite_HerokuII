@@ -43,7 +43,7 @@ get '/' do
 end
 
 
-get '/file.kml' do
+get '/get/file.kml' do
 
    constCountR = 10
    countR = GpsDate.count  
@@ -66,7 +66,7 @@ get '/file.kml' do
         strBody = ERB.new strERB 
 
         content_type 'application/vnd.google-earth.kml+xml'
-        attachment 'cord.kml'  
+        attachment 'cord.kml'
         body = strBody.result(binding)
         
  
