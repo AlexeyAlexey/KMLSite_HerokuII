@@ -23,8 +23,7 @@
 <%@gpsData.each do |point|%><%="#{point.l_x}, #{point.l_y}, #{point.al_z}\n"%><%end%>
         </coordinates>
       </LineString>
-    </Placemark>    
-  </Document>
+    </Placemark>
 <Placemark>
       <name>Simple placemark</name>
       <description><%="Date: #{Time.at @markEndPoint.t_i}"%></description>
@@ -34,5 +33,6 @@
 <%="#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z}\n"%>
         </coordinates>
       </Point>
-    </Placemark>
+    </Placemark>    
+  </Document>
 </kml>
