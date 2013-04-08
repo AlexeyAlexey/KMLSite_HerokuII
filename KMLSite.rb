@@ -70,7 +70,7 @@ get '/get/file.kml' do
 
         #body = strBody.result(binding)
         
-        strBody = ERB.new <<-EOF
+        strBody = <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
 <!-- Data derived from:
@@ -94,8 +94,8 @@ get '/get/file.kml' do
         <altitudeMode>relative</altitudeMode>
         <coordinates>
         30.443, 50.4774, 0
-        50.4507, 30.72, 0
-        50.432, 30.57, 0
+        30.72, 50.4507, 0
+        30.57, 50.432, 0
         </coordinates>
       </LineString>
     </Placemark>
@@ -105,14 +105,14 @@ get '/get/file.kml' do
       <Point>
         <altitudeMode>relative</altitudeMode>
         <coordinates>      
-50.432, 30.57, 0
+30.57, 50.432, 0
         </coordinates>
       </Point>
     </Placemark>    
   </Document>
 </kml>
         EOF
-body = strBody.result(binding)
+body = strBody
  
 end
 
