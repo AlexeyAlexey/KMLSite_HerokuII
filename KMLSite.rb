@@ -60,7 +60,7 @@ end
 get '/kml' do
    
    content_type 'application/vnd.google-earth.kml+xml'
-   attachment 'kml.kml'
+   attachment 'cord.kml'
 
    constCountR = 10
    countR = GpsDate.count  
