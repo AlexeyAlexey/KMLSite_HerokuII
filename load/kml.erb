@@ -17,8 +17,9 @@
         <altitudeMode>relative</altitudeMode>
         <coordinates>
 <% @gpsData.each do |cord|%>
-         <%= "#{cord.l_x}, #{cord.l_y}, #{cord.al_z} " %> </coordinates>
-<% end %>        
+         <%= "#{cord.l_x}, #{cord.l_y}, #{cord.al_z} " %>
+<% end %>  
+       </coordinates>      
       </LineString>
     </Placemark>
     <Placemark>
