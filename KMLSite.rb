@@ -68,51 +68,8 @@ get '/get/cord.kml' do
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
 
-        #body = strBody.result(binding)
-        
-        strBody = <<-EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.1">
-<!-- Data derived from:
-       Ed Knittel - || tastypopsicle.com
-       Feel free to use this file for your own purposes.
-       Just leave the comments and credits when doing so.
--->
-  <Document>
-    <name>Chicago Transit Map</name>
-    <description>Chicago Transit Authority train lines</description>    
-    <Style id="orangeLine">
-      <LineStyle>
-        <color>ff00ccff</color>
-        <width>4</width>
-      </LineStyle>
-    </Style>      
-    <Placemark>
-      <name>Orange Line</name>
-      <styleUrl>#orangeLine</styleUrl>
-      <LineString>
-        <altitudeMode>relative</altitudeMode>
-        <coordinates>
-        30.443, 50.4774, 0
-        30.4668, 50.3969, 0
-        30.5546, 50.4636, 0
-        </coordinates>
-      </LineString>
-    </Placemark>
-    <Placemark>
-      <name>Simple placemark</name>
-      <description>"Date"</description>
-      <Point>
-        <altitudeMode>relative</altitudeMode>
-        <coordinates>      
-30.5546, 50.4636, 0
-        </coordinates>
-      </Point>
-    </Placemark>    
-  </Document>
-</kml>
-        EOF
-body = strBody
+        body = strBody.result(binding)
+ 
  
 end
 
