@@ -24,5 +24,16 @@
         </coordinates>
       </LineString>
     </Placemark>
+    <Placemark>
+      <name>Point</name>
+      <description><%="Date: #{Time.at @markEndPoint.t_i}"%></description>
+      <Point>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>      
+<%="#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z}\n"%>
+        </coordinates>
+      </Point>
+    </Placemark>
+
   </Document>
 </kml>
