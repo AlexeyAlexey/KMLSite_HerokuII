@@ -70,7 +70,7 @@ get '/get/cord.kml' do
 
         #body = strBody.result(binding)
         
-        strBody = <<-EOF
+        strBody111 = <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
 <!-- Data derived from:
@@ -112,7 +112,7 @@ get '/get/cord.kml' do
   </Document>
 </kml>
         EOF
-body = strBody
+body = strBody.result(binding)
  
 end
 
