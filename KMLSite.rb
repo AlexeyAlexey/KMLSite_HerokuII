@@ -70,7 +70,7 @@ get '/get/file.kml' do
 
         #body = strBody.result(binding)
         
-        strBody = <<-EOF
+        strBody = ERB.new <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
 <!-- Data derived from:
@@ -93,17 +93,19 @@ get '/get/file.kml' do
       <LineString>
         <altitudeMode>relative</altitudeMode>
         <coordinates>
-<%@gpsData.each do |point|%><%="#{point.l_x}, #{point.l_y}, #{point.al_z}\n"%><%end%>
+        30.443, 50.4774, 0
+        50.4507, 30.72, 0
+        50.432, 30.57, 0
         </coordinates>
       </LineString>
     </Placemark>
     <Placemark>
       <name>Simple placemark</name>
-      <description><%="Date: #{Time.at @markEndPoint.t_i}"%></description>
+      <description>"Date"</description>
       <Point>
         <altitudeMode>relative</altitudeMode>
         <coordinates>      
-<%="#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z}\n"%>
+50.432, 30.57, 0
         </coordinates>
       </Point>
     </Placemark>    
