@@ -70,7 +70,7 @@ get '/get/cord.kml' do
 
         #body = strBody.result(binding)
         
-        strBody111 = <<-EOF
+        strBody = <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
 <!-- Data derived from:
@@ -94,8 +94,8 @@ get '/get/cord.kml' do
         <altitudeMode>relative</altitudeMode>
         <coordinates>
         30.443, 50.4774, 0
-        30.72, 50.4507, 0
-        30.57, 50.432, 0
+        30.4668, 50.3969, 0
+        30.5546, 50.4636, 0
         </coordinates>
       </LineString>
     </Placemark>
@@ -105,14 +105,14 @@ get '/get/cord.kml' do
       <Point>
         <altitudeMode>relative</altitudeMode>
         <coordinates>      
-30.57, 50.432, 0
+30.5546, 50.4636, 0
         </coordinates>
       </Point>
     </Placemark>    
   </Document>
 </kml>
         EOF
-body = strBody.result(binding)
+body = strBody
  
 end
 
