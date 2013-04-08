@@ -62,7 +62,7 @@ get '/file.kml' do
         @markEndPoint = lastR 
         
  
-        strERB = File.open('./load/kml2.erb', File::RDONLY).read
+        strERB = File.open('./load/kml.erb', File::RDONLY).read
         strBody = ERB.new strERB 
 
         content_type 'application/vnd.google-earth.kml+xml'
