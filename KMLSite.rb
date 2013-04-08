@@ -130,19 +130,6 @@ post '/input' do
    then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
  end 
 
- data = jsonDate["data"]
-#convert time in unix without time 
- t_i = Time.at data["t_i"]
- t_i_Date = Time.parse t_i.strftime("%Y/%m/%d") 
- t_i_DateUnix = t_i_Date.to_i #date in Unix format
-
- 
-#convert time in unix without time
-#date of fix in db
- date_fix = Time.now 
- date_fix_Date = Time.parse date_fix.strftime("%Y/%m/%d") #Years Month Day
- date_fix_DateUnix = date_fix_Date.to_i #date in Unix format
-
 
  dateGPS = GpsDate.new do |gps|
    gps.al_z     = data["al"].to_f
@@ -154,9 +141,7 @@ post '/input' do
    gps.vv_0     = data["vv"][0].to_f
    gps.vv_1     = data["vv"][1].to_f
    gps.ha       = data["ha"]
-   gps.va       = data["va"]
-   gps.t_i_date = t_i_DateUnix
-   gps.date_fix = date_fix_DateUnix
+   gps.va       = data["va"]   
  end
 
 begin

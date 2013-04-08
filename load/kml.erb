@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
+<kml xmlns="http://earth.google.com/kml/2.1">
+<!-- Data derived from:
+       Ed Knittel - || tastypopsicle.com
+       Feel free to use this file for your own purposes.
+       Just leave the comments and credits when doing so.
+-->
   <Document>
-    <name>My Tracker</name>
-    <description>Google Latitude by yourself</description>
-    <Style id="blueline">
+    <name>Chicago Transit Map</name>
+    <description>Chicago Transit Authority train lines</description>    
+    <Style id="orangeLine">
       <LineStyle>
-        <color>ffff0000</color>
-        <width>3</width>
+        <color>ff00ccff</color>
+        <width>4</width>
       </LineStyle>
-    </Style>
+    </Style>      
     <Placemark>
-      <name>Line Track</name>
-      <description>your object on track</description>
-      <styleUrl>#blueline</styleUrl>
+      <name>Orange Line</name>
+      <styleUrl>#orangeLine</styleUrl>
       <LineString>
         <altitudeMode>relative</altitudeMode>
         <coordinates>
-<% @gpsData.each do |cord|%><%="#{cord.l_x}, #{cord.l_y}, #{cord.al_z} "%><% end %>  
-       </coordinates>      
+<%@gpsData.each do |point|%><%="#{point.l_x}, #{point.l_y}, #{point.al_z}\n"%><%end%>
+        </coordinates>
       </LineString>
-    </Placemark>
-    <Placemark>
-      <name>Point</name>
-      <description><%= "Date fix: #{Time.at @markEndPoint.t_i}" %></description>
-      <Point>
-        <altitudeMode>relative</altitudeMode>
-        <coordinates> <%= "#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z} " %> </coordinates>
-      </Point>
     </Placemark>
   </Document>
 </kml>
