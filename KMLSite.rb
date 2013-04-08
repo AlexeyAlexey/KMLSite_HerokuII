@@ -43,7 +43,7 @@ get '/' do
 end
 
 
-get '/get/file.kml' do
+get '/get/cord.kml' do
 
    constCountR = 10
    countR = GpsDate.count  
