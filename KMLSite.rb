@@ -58,7 +58,7 @@ end
 
 
 get '/kml' do
-
+   
    content_type 'application/vnd.google-earth.kml+xml'
    attachment 'kml'
 
@@ -75,9 +75,9 @@ get '/kml' do
         countR = lastR.id - constCountR 
  
  
-        @gpsData = GpsDate.last(countR) #send to kml.kml file (get '/kml')
-        @markEndPoint = lastR #send to kml.kml file (get '/kml')
-        #head file
+        @gpsData = GpsDate.last(countR) 
+        @markEndPoint = lastR 
+        
  
         strERB = File.open('./load/kml.erb', File::RDONLY).read
         strBody = ERB.new strERB   
