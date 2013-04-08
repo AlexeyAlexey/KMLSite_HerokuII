@@ -47,16 +47,6 @@ end
 get '/maps' do
 end
 
-
-
-get '/views/googlmaps' do
-
-erb :googlmaps, :layout => false
-
-end
-
-
-
 get '/kml' do
 
    constCountR = 10
