@@ -37,15 +37,11 @@ end
 
 get '/' do
   
-   erb :index, :layout => true, :locals => {:message => false}
+   erb :index, :layout => true
    
   
 end
 
-
-
-get '/maps' do
-end
 
 get '/kml' do
 
