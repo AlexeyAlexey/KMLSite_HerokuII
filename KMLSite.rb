@@ -22,7 +22,7 @@ end
 
 
 error do
-  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+  #'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end
 
 not_found do
@@ -67,8 +67,50 @@ get '/get/file.kml' do
 
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
-        body = strBody.result(binding)
+
+        #body = strBody.result(binding)
         
+        strBody = <<-EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<!-- Data derived from:
+       Ed Knittel - || tastypopsicle.com
+       Feel free to use this file for your own purposes.
+       Just leave the comments and credits when doing so.
+-->
+  <Document>
+    <name>Chicago Transit Map</name>
+    <description>Chicago Transit Authority train lines</description>    
+    <Style id="orangeLine">
+      <LineStyle>
+        <color>ff00ccff</color>
+        <width>4</width>
+      </LineStyle>
+    </Style>      
+    <Placemark>
+      <name>Orange Line</name>
+      <styleUrl>#orangeLine</styleUrl>
+      <LineString>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>
+<%@gpsData.each do |point|%><%="#{point.l_x}, #{point.l_y}, #{point.al_z}\n"%><%end%>
+        </coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>Simple placemark</name>
+      <description><%="Date: #{Time.at @markEndPoint.t_i}"%></description>
+      <Point>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>      
+<%="#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z}\n"%>
+        </coordinates>
+      </Point>
+    </Placemark>    
+  </Document>
+</kml>
+        EOF
+body = strBody.result(binding)
  
 end
 
@@ -116,7 +158,7 @@ post '/input' do
    then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
  end 
 
-
+ data = jsonDate["data"]
  dateGPS = GpsDate.new do |gps|
    gps.al_z     = data["al"].to_f
    gps.l_x      = data["l"][0].to_f
