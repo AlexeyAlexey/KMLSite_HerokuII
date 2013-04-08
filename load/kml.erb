@@ -15,10 +15,10 @@
       <styleUrl>#blueline</styleUrl>
       <LineString>
         <altitudeMode>relative</altitudeMode>
+        <coordinates>
 <% @gpsData.each do |cord|%>
-        <coordinates> <%= "#{cord.l_x}, #{cord.l_y}, #{cord.al_z} " %>
-<% end %>
-        </coordinates>
+         <%= "#{cord.l_x}, #{cord.l_y}, #{cord.al_z} " %> </coordinates>
+<% end %>        
       </LineString>
     </Placemark>
     <Placemark>
@@ -26,8 +26,7 @@
       <description><%= "Date fix: #{Time.at @markEndPoint.t_i}" %></description>
       <Point>
         <altitudeMode>relative</altitudeMode>
-        <coordinates> <%= "#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z} " %>
-        </coordinates>
+        <coordinates> <%= "#{@markEndPoint.l_x}, #{@markEndPoint.l_y}, #{@markEndPoint.al_z} " %> </coordinates>
       </Point>
     </Placemark>
   </Document>
