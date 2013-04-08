@@ -59,20 +59,13 @@ end
 
 get '/kml' do
 
-   content_type 'application/vnd.google-earth.km'
+   content_type 'application/vnd.google-earth.kml+xml'
    attachment 'kml'
 
    constCountR = 10
    countR = GpsDate.count  
    
-
-   if countR == 0
-     then strERB = File.open('./load/kml2.erb', File::RDONLY).read
-          strBody = ERB.new strERB   
-          body = strBody.result(binding)
-               
-   else
-
+   
         lastR = GpsDate.last
 
         if  countR < constCountR
@@ -89,7 +82,7 @@ get '/kml' do
         strERB = File.open('./load/kml.erb', File::RDONLY).read
         strBody = ERB.new strERB   
         body = strBody.result(binding)
-   end
+   
  
 end
 
