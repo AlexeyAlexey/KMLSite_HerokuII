@@ -60,11 +60,11 @@ get '/get/cord.kml' do
         strERB = File.open('./public/kml.erb', File::RDONLY).read
         strBody = ERB.new strERB 
         
-        content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
-        headers 'Content-Type' => "application/vnd.google-earth.kml+xml; charset=utf-8"
-        #attachment 'cord.kml'        
-        body = strBody.result(binding) 
+        #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         
+        #attachment 'cord.kml'        
+        #body strBody.result(binding) 
+        strBody.result(binding)
 #erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 
 #send_file "response", 
