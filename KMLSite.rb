@@ -61,11 +61,11 @@ get '/get/cord.kml' do
 #strERB = File.open('./public/kml.erb', File::RDONLY).read
 #strBody = ERB.new strERB 
         
-        content_type 'application/vnd.google-earth.kml+xml'
+        #content_type 'application/vnd.google-earth.kml+xml'
         #attachment 'cord.kml'
         #body = strBody.result(binding) 
 #erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
-
+content_type 'xml'
 <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
