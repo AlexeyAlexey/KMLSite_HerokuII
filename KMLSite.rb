@@ -69,6 +69,34 @@ get '/get/cord.kml' do
 end
 
 
+get '/favicon.ico'   do
+
+constCountR = 10
+   countR = GpsDate.count  
+   
+
+        if  countR < constCountR
+          then constCountR = countR
+        end    
+            
+        @gpsData = GpsDate.last(constCountR) 
+        @markEndPoint = GpsDate.last
+        
+ 
+        strERB = File.open('./load/kml.erb', File::RDONLY).read
+        strBody = ERB.new strERB 
+
+        content_type 'application/vnd.google-earth.kml+xml'
+        attachment 'cord.kml'
+
+        body = strBody.result(binding)
+
+
+
+
+end
+
+
 
 post '/input' do
 
