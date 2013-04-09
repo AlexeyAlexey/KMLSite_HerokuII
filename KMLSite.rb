@@ -63,7 +63,7 @@ get '/get/cord.kml' do
         #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         #attachment 'cord.kml'        
-        body = strBody.result(binding) 
+        strBody.result(binding) 
         
 #erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 
@@ -74,7 +74,33 @@ get '/get/cord.kml' do
              
 end
 
+get '/kml' do
 
+constCountR = 10
+   countR = GpsDate.count  
+   
+
+        if  countR < constCountR
+          then constCountR = countR
+        end    
+            
+        @gpsData = GpsDate.last(constCountR) 
+        @markEndPoint = GpsDate.last
+
+        strERB = File.open('./public/kml.erb', File::RDONLY).read
+        strBody = ERB.new strERB 
+        
+        #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
+        headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
+        #attachment 'cord.kml'        
+        #strBody.result(binding) 
+
+stream do |out|
+    out << strBody.result(binding)
+    
+end
+
+end
 
 get '/addCord' do
 
