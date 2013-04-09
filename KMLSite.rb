@@ -45,7 +45,7 @@ get '/' do
 end
 
 
-get '/get/cord.kml' do
+get '/get/cordan.kml' do
 
    constCountR = 10
    countR = GpsDate.count  
@@ -62,9 +62,56 @@ get '/get/cord.kml' do
 #strBody = ERB.new strERB 
         
         content_type 'application/vnd.google-earth.kml+xml'
-        attachment 'cord.kml'
+        #attachment 'cord.kml'
         #body = strBody.result(binding) 
-erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+#erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+
+<<-EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<!-- Data derived from:
+       Ed Knittel - || tastypopsicle.com
+       Feel free to use this file for your own purposes.
+       Just leave the comments and credits when doing so.
+-->
+  <Document>
+    <name>Chicago Transit Map</name>
+    <description>Chicago Transit Authority train lines</description>    
+    <Style id="orangeLine">
+      <LineStyle>
+        <color>ff00ccff</color>
+        <width>4</width>
+      </LineStyle>
+    </Style>      
+    <Placemark>
+      <name>Orange Line</name>
+      <styleUrl>#orangeLine</styleUrl>
+      <LineString>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>
+30.443, 50.4774, 0.0
+30.4668, 50.3969, 0.0
+30.5801, 50.4199, 0.0
+30.541, 50.4811, 0.0
+        </coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark>
+      <name>Simple placemark</name>
+      <description>Date: 2011-02-06 17:03:34 +0000 and time now 2013-04-09 13:41:32 +0000</description>
+      <Point>
+        <altitudeMode>relative</altitudeMode>
+        <coordinates>      
+30.541, 50.4811, 0.0
+        </coordinates>
+      </Point>
+    </Placemark>    
+  </Document>
+</kml>
+
+
+
+EOF
 
 end
 
