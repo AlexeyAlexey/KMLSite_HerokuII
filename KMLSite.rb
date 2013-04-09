@@ -48,18 +48,13 @@ get '/get/cord.kml' do
    constCountR = 10
    countR = GpsDate.count  
    
-   
-        lastR = GpsDate.last
 
         if  countR < constCountR
           then constCountR = countR
         end    
-   
-        countR = lastR.id - constCountR 
- 
- 
-        @gpsData = GpsDate.last(countR) 
-        @markEndPoint = lastR 
+            
+        @gpsData = GpsDate.last(constCountR) 
+        @markEndPoint = GpsDate.last
         
  
         strERB = File.open('./load/kml.erb', File::RDONLY).read
