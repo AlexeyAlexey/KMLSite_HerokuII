@@ -61,10 +61,10 @@ get '/get/cord.kml' do
         strBody = ERB.new strERB 
         
         #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
-        
+        headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         #attachment 'cord.kml'        
-        #body strBody.result(binding) 
-        strBody.result(binding)
+        body = strBody.result(binding) 
+        
 #erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 
 #send_file "response", 
