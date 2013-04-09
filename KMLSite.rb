@@ -6,9 +6,11 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
-set :run, false
+
 set :root, './'
 set :app_file, __FILE__
+
+
 
 configure do
       enable :logging, :sessions
@@ -55,14 +57,15 @@ get '/get/cord.kml' do
             
         @gpsData = GpsDate.last(constCountR) 
         @markEndPoint = GpsDate.last
-        
- 
-        strERB = File.open('./public/kml.erb', File::RDONLY).read
-        strBody = ERB.new strERB 
 
+#strERB = File.open('./public/kml.erb', File::RDONLY).read
+#strBody = ERB.new strERB 
+        
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
-        body = strBody.result(binding) 
+        #body = strBody.result(binding) 
+erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+
 end
 
 
