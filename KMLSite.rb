@@ -6,6 +6,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
+set :run, false
 set :root, './'
 set :app_file, __FILE__
 
@@ -36,7 +37,7 @@ end
 
 get '/' do
   
-   erb :index, :layout => true
+   erb :googleMaps#:index, :layout => true
    
   
 end
@@ -61,8 +62,7 @@ get '/get/cord.kml' do
 
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
-        #body = strBody.result(binding) 
-        return strBody.result(binding)
+        body = strBody.result(binding) 
 end
 
 post '/input' do
