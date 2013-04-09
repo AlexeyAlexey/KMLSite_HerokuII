@@ -57,15 +57,12 @@ get '/get/cord.kml' do
         @markEndPoint = GpsDate.last
         
  
-        strERB = File.open('./load/kml.erb', File::RDONLY).read
+        strERB = File.open('./public/kml.erb', File::RDONLY).read
         strBody = ERB.new strERB 
 
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
-
-        body = strBody.result(binding)
- 
- 
+        body = strBody.result(binding) 
 end
 
 post '/input' do
