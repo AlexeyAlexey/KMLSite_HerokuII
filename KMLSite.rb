@@ -65,6 +65,13 @@ get '/get/cord.kml' do
         body = strBody.result(binding) 
 end
 
+
+get '/addCord' do
+
+erb :index, :layout => true
+
+end
+
 post '/input' do
 
  begin
