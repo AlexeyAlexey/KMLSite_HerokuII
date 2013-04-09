@@ -65,6 +65,14 @@ get '/get/cord.kml' do
         #attachment 'cord.kml'
         #body = strBody.result(binding) 
 #erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+
+
+end
+
+
+get '/kml' do
+
+
 content_type 'xml'
 <<-EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -112,6 +120,7 @@ content_type 'xml'
 
 
 EOF
+
 
 end
 
