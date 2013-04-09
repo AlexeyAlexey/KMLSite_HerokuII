@@ -6,7 +6,6 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
-#Dir.chdir(File.dirname File.expand_path('../KMLSite.rb', __FILE__))
 set :root, './'
 set :app_file, __FILE__
 
@@ -22,7 +21,7 @@ end
 
 
 error do
-  #'Sorry there was a nasty error - ' + env['sinatra.error'].name
+  'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end
 
 not_found do
@@ -62,7 +61,8 @@ get '/get/cord.kml' do
 
         content_type 'application/vnd.google-earth.kml+xml'
         attachment 'cord.kml'
-        body = strBody.result(binding) 
+        #body = strBody.result(binding) 
+        return strBody.result(binding)
 end
 
 post '/input' do
