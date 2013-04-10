@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-
+set :static_cache_control, [:public, max_age: 60 * 60 * 24 * 365]
 set :root, './'
 set :app_file, __FILE__
 
@@ -144,7 +144,7 @@ constCountR = 10
             #   out << strR.result(binding)    
             #end
         #body = strBody.result(binding)
-    cache_control :no_cache, :max_age => 0
+    
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 
 end
