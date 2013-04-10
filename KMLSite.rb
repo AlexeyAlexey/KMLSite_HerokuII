@@ -8,12 +8,14 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-
+require 'ostruct'
+require 'sinatra/base'
+require 'sinatra/main'
 
 set :root, './'
 set :app_file, __FILE__
 
-set :strResp, File.open('./public/kml.erb', File::RDONLY).read
+set :strResp, File.open('./kml.erb', File::RDONLY).read
 
 
 configure do
@@ -94,7 +96,7 @@ constCountR = 10
 
         #strERB = File.open('./public/kml.erb', File::RDONLY).read
         #strBody = ERB.new strERB 
-         strR = ERB.new settings.strResp        
+        strR = ERB.new settings.strResp        
 
         content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         #headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
@@ -105,7 +107,7 @@ constCountR = 10
                out << strR.result(binding)    
             end
     
-#send_data "file"
+
 
 end
 
