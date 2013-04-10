@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-
+disable :protection
 set :root, './'
 set :app_file, __FILE__
 
