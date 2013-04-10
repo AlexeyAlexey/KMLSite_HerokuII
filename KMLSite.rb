@@ -118,7 +118,7 @@ get '/get/cord.kml' do
 end
 
 get '/kml' do
-cache_control :public, :must_revalidate, :max_age => 60
+cache_control :no_cache #, :must_revalidate, :max_age => 60
 constCountR = 10
    countR = GpsDate.count  
    
