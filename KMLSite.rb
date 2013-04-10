@@ -7,10 +7,13 @@ require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
+#require 'rack/websocket'
+
 
 set :root, './'
 set :app_file, __FILE__
 
+set :strResp, File.open('./public/kml.erb', File::RDONLY).read
 
 
 configure do
@@ -89,26 +92,20 @@ constCountR = 10
         @gpsData = GpsDate.last(constCountR) 
         @markEndPoint = GpsDate.last
 
-        strERB = File.open('./public/kml.erb', File::RDONLY).read
-        strBody = ERB.new strERB 
-        
-        #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
+        #strERB = File.open('./public/kml.erb', File::RDONLY).read
+        #strBody = ERB.new strERB 
+         strR = ERB.new settings.strResp        
+
+        content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         #headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         #attachment 'cord.kml'        
         #strBody.result(binding) 
- respond_to do |f|    
-    f.on('application/vnd.google-earth.kml+xml;charset=utf-8') { 
-            stream do |out|
-               out << strBody.result(binding)    
-            end
-      }    
-    f.on('*/*') { 
-                  stream do |out|
-                      out << strBody.result(binding)    
-                   end
-      }
- end
 
+            stream do |out|
+               out << strR.result(binding)    
+            end
+    
+#send_data "file"
 
 end
 
