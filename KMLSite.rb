@@ -144,7 +144,7 @@ constCountR = 10
             #   out << strR.result(binding)    
             #end
         #body = strBody.result(binding)
-
+    cache_control :no_cache, :max_age => 0
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 
 end
