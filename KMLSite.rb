@@ -117,8 +117,15 @@ get '/get/cord.kml' do
              
 end
 
+
+before '/kml' do
+    response.headers['Cache-Control'] = 'no-cache'
+  end
+
+
+
 get '/kml' do
-cache_control :public, :max_age => 7200
+
 constCountR = 10
    countR = GpsDate.count  
    
