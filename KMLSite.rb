@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-disable :protection
+
 set :root, './'
 set :app_file, __FILE__
 
@@ -100,7 +100,7 @@ get '/get/cord.kml' do
         @gpsData = GpsDate.last(constCountR) 
         @markEndPoint = GpsDate.last
 
-        strERB = File.open('./public/kml.erb', File::RDONLY).read
+        strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
         strBody = ERB.new strERB 
         
         #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
@@ -118,7 +118,7 @@ get '/get/cord.kml' do
 end
 
 get '/kml' do
-
+cache_control :public, :must_revalidate, :max_age => 60
 constCountR = 10
    countR = GpsDate.count  
    
@@ -130,9 +130,9 @@ constCountR = 10
         @gpsData = GpsDate.last(constCountR) 
         @markEndPoint = GpsDate.last
 
-        #strERB = File.open('./public/kml.erb', File::RDONLY).read
-        #strBody = ERB.new strERB 
-        strR = ERB.new settings.strResp        
+        strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
+        strBody = ERB.new strERB
+               
 
         content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
@@ -142,7 +142,7 @@ constCountR = 10
            # stream do |out|
             #   out << strR.result(binding)    
             #end
-        body = strR.result(binding)
+        body = strBody.result(binding)
 end
 
 get '/addCord' do
