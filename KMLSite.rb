@@ -142,7 +142,9 @@ constCountR = 10
            # stream do |out|
             #   out << strR.result(binding)    
             #end
-        body = strBody.result(binding)
+        #body = strBody.result(binding)
+
+   erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
 end
 
 get '/addCord' do
