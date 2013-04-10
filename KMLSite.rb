@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-set :static_cache_control, [:public, max_age: 60 * 60 * 24 * 365]
+set :static_cache_control, [:public, max_age: 0]
 set :root, './'
 set :app_file, __FILE__
 
