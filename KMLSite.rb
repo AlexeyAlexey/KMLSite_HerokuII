@@ -1,5 +1,7 @@
 require 'rubygems'
 require "sinatra"
+require 'sinatra/base'
+require 'sinatra/contrib/all'
 require 'json'
 require 'erb'
 require 'active_record'
@@ -91,14 +93,22 @@ constCountR = 10
         strBody = ERB.new strERB 
         
         #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
-        headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
+        #headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         #attachment 'cord.kml'        
         #strBody.result(binding) 
+ respond_to do |f|    
+    f.on('application/vnd.google-earth.kml+xml;charset=utf-8') { 
+            stream do |out|
+               out << strBody.result(binding)    
+            end
+      }    
+    f.on('*/*') { 
+                  stream do |out|
+                      out << strBody.result(binding)    
+                   end
+      }
+ end
 
-stream do |out|
-    out << strBody.result(binding)
-    
-end
 
 end
 
