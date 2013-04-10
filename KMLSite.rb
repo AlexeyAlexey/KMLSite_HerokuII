@@ -118,7 +118,7 @@ get '/get/cord.kml' do
 end
 
 get '/kml' do
-cache_control :no_store
+cache_control :public, :max_age => 7200
 constCountR = 10
    countR = GpsDate.count  
    
@@ -144,7 +144,8 @@ constCountR = 10
             #end
         #body = strBody.result(binding)
 
-   erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+    erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+
 end
 
 get '/addCord' do
