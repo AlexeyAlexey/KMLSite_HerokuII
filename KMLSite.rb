@@ -118,12 +118,6 @@ get '/get/cord.kml' do
 end
 
 
-before '/kml' do
-    response.headers['Cache-Control'] = 'no-cache'
-  end
-
-
-
 get '/kml' do
 
 constCountR = 10
