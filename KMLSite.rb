@@ -67,16 +67,19 @@ end
 post '/input' do
 
  begin
+   #[{"t"=>1365795461000, "ll"=>[48.563484, 39.31413], "ha"=>22, "va"=>0, "al"=>0, "vv"=>[0, 0]}]
    jsonDate = JSON.parse params[:fixes]
+   #{"t"=>1365795806000, "ll"=>[48.563452, 39.314097], "ha"=>24, "va"=>0, "al"=>0, "vv"=>[0, 0]}
+   jsonDate = jsonDate[0]
  rescue => ex # ссылается на обрабатываемый объект Exception
    return "#{ex.class}: #{ex.message}"
  end
-
+ 
 require 'pony'
     Pony.mail(
       :from => 'ialexey.kondratenko@gmail.com',
       :to => 'alexey.kondratenko@mail.ru',
-      :subject => 'hi2',
+      :subject => 'hi3',
       :body => jsonDate,
       :port => '587',
       :via => :smtp,
@@ -115,9 +118,7 @@ require 'pony'
 
  content_type 'application/JSON'
  attachment 'JSON'
- 
-#{"t"=>1365795806000, "ll"=>[48.563452, 39.314097], "ha"=>24, "va"=>0, "al"=>0, "vv"=>[0, 0]}
-  
+
  if jsonDate.has_key? "error"
    then return body= message.call(jsonDate["t"], view_url, jsonDate["error"])
  end 
