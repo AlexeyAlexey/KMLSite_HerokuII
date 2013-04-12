@@ -116,29 +116,29 @@ require 'pony'
  content_type 'application/JSON'
  attachment 'JSON'
  
-
+#{"t"=>1365795806000, "ll"=>[48.563452, 39.314097], "ha"=>24, "va"=>0, "al"=>0, "vv"=>[0, 0]}
   
- if jsonDate["error"]
-   then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
+ if jsonDate.has_key? "error"
+   then return body= message.call(jsonDate["t"], view_url, jsonDate["error"])
  end 
 
 
- if !jsonDate["found"] 
-   then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
+ if jsonDate.has_key?("found") 
+   then return body= message.call(jsonDate["t"], view_url, "sometimes false, then no data")
  end 
 
- data = jsonDate["data"]
+ dataFix = Time.now.to_i
  dateGPS = GpsDate.new do |gps|
-   gps.al_z     = data["al"].to_f
-   gps.l_x      = data["l"][0].to_f
-   gps.l_y      = data["l"][1].to_f
-   gps.t        = data["t"].to_i
-   gps.t_i      = data["t_i"].to_i
-   gps.al       = data["al"].to_f
-   gps.vv_0     = data["vv"][0].to_f
-   gps.vv_1     = data["vv"][1].to_f
-   gps.ha       = data["ha"]
-   gps.va       = data["va"]   
+   gps.al_z     = jsonDate["al"].to_f
+   gps.l_x      = jsonDate["ll"][0].to_f
+   gps.l_y      = jsonDate["ll"][1].to_f
+   gps.t        = jsonDate["t"].to_i
+   gps.t_i      = dataFix
+   gps.al       = jsonDate["al"].to_f
+   gps.vv_0     = jsonDate["vv"][0].to_f
+   gps.vv_1     = jsonDate["vv"][1].to_f
+   gps.ha       = jsonDate["ha"].to_f
+   gps.va       = jsonDate["va"].to_f   
  end
 
 begin
@@ -148,7 +148,7 @@ begin
  end
 
 
-return body = message.call(jsonDate["data"]["t"], view_url, nil)
+return body = message.call(jsonDate["t"], view_url, nil)
 #Get json with coordinate
 #This input method takes JSON data directly in a param named fixes
 #get http://mine-track.appspot.com/get/kml
