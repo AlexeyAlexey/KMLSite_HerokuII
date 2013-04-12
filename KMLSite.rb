@@ -74,7 +74,7 @@ post '/input' do
  rescue => ex # ссылается на обрабатываемый объект Exception
    return "#{ex.class}: #{ex.message}"
  end
- 
+<<-EOF
 require 'pony'
     Pony.mail(
       :from => 'ialexey.kondratenko@gmail.com',
@@ -93,7 +93,7 @@ require 'pony'
         :domain               => 'gmail.com'
       })
     
-
+EOF
 
  
 
