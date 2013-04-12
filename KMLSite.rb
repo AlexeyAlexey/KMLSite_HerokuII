@@ -87,8 +87,8 @@ get '/' do
 end
 
 
-get '/kml' do
-cache_control :no_cash
+get '/kmll' do
+
 constCountR = 10
    countR = GpsDate.count  
    
@@ -100,12 +100,13 @@ constCountR = 10
         @gpsData = GpsDate.last(constCountR) 
         @markEndPoint = GpsDate.last
 
-        strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
-        strBody = ERB.new strERB
+        #strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
+        #strBody = ERB.new strERB
                
 
         content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
+        response.headers['Cache-Control'] = 'no-cash'
         #attachment 'cord.kml'        
         #strBody.result(binding) 
 
@@ -113,9 +114,9 @@ constCountR = 10
             #   out << strR.result(binding)    
             #end
         #body = strBody.result(binding)
-    
+    cache_control :no_cash
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
-
+    
 end
 
 get '/addCord' do
