@@ -74,12 +74,16 @@ post '/input' do
  rescue => ex # ссылается на обрабатываемый объект Exception
    return "#{ex.class}: #{ex.message}"
  end
+
+ if jsonDate["t"].is_a? Array
+   then jsonDate["t"] = jsonDate["t"][0]
+ end
 <<-EOF
 require 'pony'
     Pony.mail(
       :from => 'ialexey.kondratenko@gmail.com',
       :to => 'alexey.kondratenko@mail.ru',
-      :subject => 'hi3',
+      :subject => 'heroku',
       :body => jsonDate,
       :port => '587',
       :via => :smtp,
@@ -92,8 +96,8 @@ require 'pony'
         :authentication       => :plain, 
         :domain               => 'gmail.com'
       })
-    
-EOF
+EOF   
+
 
  
 
