@@ -12,47 +12,6 @@ require 'fileutils'
 set :root, './'
 set :app_file, __FILE__
 
-set :strResp, %Q{<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
-<!-- Data derived from:
-       Ed Knittel - || tastypopsicle.com
-       Feel free to use this file for your own purposes.
-       Just leave the comments and credits when doing so.
--->
-  <Document>
-    <name>Chicago Transit Map</name>
-    <description>Chicago Transit Authority train lines</description>    
-    <Style id="orangeLine">
-      <LineStyle>
-        <color>ff00ccff</color>
-        <width>4</width>
-      </LineStyle>
-    </Style>      
-    <Placemark>
-      <name>Orange Line</name>
-      <styleUrl>#orangeLine</styleUrl>
-      <LineString>
-        <altitudeMode>relative</altitudeMode>
-        <coordinates>
-<%@gpsData.each do |point|%><%= point.l_x %> , <%= point.l_y %>, <%= point.al_z %> \n <%end%>
-        </coordinates>
-      </LineString>
-    </Placemark>
-    <Placemark>
-      <name>Simple placemark</name>
-      <description> Date: <%=Time.at @markEndPoint.t_i %> and time now <%= Time.now %></description>
-      <Point>
-        <altitudeMode>relative</altitudeMode>
-        <coordinates>      
-<%= @markEndPoint.l_x %>, <%= @markEndPoint.l_y %>, <%= @markEndPoint.al_z %>\n
-        </coordinates>
-      </Point>
-    </Placemark>    
-  </Document>
-</kml>
-
-}
-
 
 configure do
       enable :logging, :sessions
@@ -107,14 +66,8 @@ constCountR = 10
         content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
         headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         response.headers['Cache-Control'] = 'no-cash'
-        #attachment 'cord.kml'        
-        #strBody.result(binding) 
-
-           # stream do |out|
-            #   out << strR.result(binding)    
-            #end
-        #body = strBody.result(binding)
-    cache_control :public, :must_revalidate, :max_age => 30
+        
+    cache_control :public, :must_revalidate, :max_age => 10
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
     
 end
