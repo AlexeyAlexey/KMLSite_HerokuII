@@ -67,7 +67,7 @@ constCountR = 10
         headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
         #response.headers['Cache-Control'] = 'no-cash'
         
-    cache_control :public, :must_revalidate, :max_age => 10, :max_stale => 10
+    cache_control :public, :must_revalidate, :max_age => 0, :max_stale => 0
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
     
 end
