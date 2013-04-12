@@ -87,7 +87,7 @@ get '/' do
 end
 
 
-get '/kmll' do
+get '/kml' do
 
 constCountR = 10
    countR = GpsDate.count  
@@ -114,7 +114,7 @@ constCountR = 10
             #   out << strR.result(binding)    
             #end
         #body = strBody.result(binding)
-    cache_control :no_cash
+    cache_control :public, :must_revalidate, :max_age => 30
     erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
     
 end
