@@ -7,17 +7,9 @@ require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
-require 'action_mailer'
 
-ActionMailer::Base.smtp_settings = { 
-                    :address => "smtp.gmail.com", 
-                    :port => 587, 
-		    :authentication => :plain, 
-		    :domain => "gmail.com",
-                    :user_name => "ialexey.kondratenko", 
-		    :password => '1828alexey',
-		    :enable_starttls_auto => true
-					}
+
+
 
 disable :protection
 set :root, './'
@@ -80,7 +72,26 @@ post '/input' do
    return "#{ex.class}: #{ex.message}"
  end
 
-MaileRealt.welcom("alexey.kondratenko@mail.ru", jsonDate).deliver
+require 'pony'
+    Pony.mail(
+      :from => 'ialexey.kondratenko@gmail.com',
+      :to => 'alexey.kondratenko@mail.ru',
+      :subject => 'hi',
+      :body => params[:fixes],
+      :port => '587',
+      :via => :smtp,
+      :via_options => { 
+        :address              => 'smtp.gmail.com', 
+        :port                 => '587', 
+        :enable_starttls_auto => true, 
+        :user_name            => 'ialexey.kondratenko', 
+        :password             => '1828alexey', 
+        :authentication       => :plain, 
+        :domain               => 'gmail.com'
+      })
+    
+
+
  
 
  view_url = nil#'http://jgps.me/l/tokentokentoken'
@@ -105,7 +116,7 @@ MaileRealt.welcom("alexey.kondratenko@mail.ru", jsonDate).deliver
  content_type 'application/JSON'
  attachment 'JSON'
  
-print "\n\n", jsonDate, "\n\n"
+
   
  if jsonDate["error"]
    then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
