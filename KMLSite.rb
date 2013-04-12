@@ -92,7 +92,7 @@ post '/input' do
  content_type 'application/JSON'
  attachment 'JSON'
  
-#print "\n\n", jsonDate["error"], "\n\n"
+print "\n\n", jsonDate, "\n\n"
   
  if jsonDate["error"]
    then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
