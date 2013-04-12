@@ -76,8 +76,8 @@ require 'pony'
     Pony.mail(
       :from => 'ialexey.kondratenko@gmail.com',
       :to => 'alexey.kondratenko@mail.ru',
-      :subject => 'hi',
-      :body => params[:fixes],
+      :subject => 'hi2',
+      :body => jsonDate,
       :port => '587',
       :via => :smtp,
       :via_options => { 
