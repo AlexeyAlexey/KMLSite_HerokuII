@@ -1,27 +1,16 @@
 require 'rubygems'
 require "sinatra"
-require 'sinatra/base'
-require 'sinatra/contrib/all'
+#require 'sinatra/base'
+#require 'sinatra/contrib/all'
 require 'json'
 require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
-#require 'rack/websocket'
+
 
 set :root, './'
 set :app_file, __FILE__
-
-
-configure do
-      enable :logging, :sessions
-
-      #file = File.new(path + "/log/sinatra.log", 'a+')
-      #file.sync = true
-      #use Rack::CommonLogger, file
-
-end
-
 
 
 error do
@@ -48,27 +37,21 @@ end
 
 get '/kml2' do
 
-constCountR = 10
+   constCountR = 10
    countR = GpsDate.count  
    
-
-        if  countR < constCountR
-          then constCountR = countR
-        end    
+   if  countR < constCountR
+     then constCountR = countR
+   end    
             
-        @gpsData = GpsDate.last(constCountR) 
-        @markEndPoint = GpsDate.last
+   @gpsData = GpsDate.last(constCountR) 
+   @markEndPoint = GpsDate.last
 
-        #strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
-        #strBody = ERB.new strERB
-               
-
-        content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
-        headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
-        #response.headers['Cache-Control'] = 'no-cash'
-        
-    cache_control :public, :must_revalidate, :max_age => 60
-    erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
+   content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
+   headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
+                
+   cache_control :public, :must_revalidate, :max_age => 60
+   erb :kml_kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
     
 end
 
@@ -140,7 +123,6 @@ begin
    return "#{ex.class}: #{ex.message}"
  end
 
- 
 
 return body = message.call(jsonDate["data"]["t"], view_url, nil)
 #Get json with coordinate
@@ -148,14 +130,4 @@ return body = message.call(jsonDate["data"]["t"], view_url, nil)
 #get http://mine-track.appspot.com/get/kml
 
 end
-
-get '/sinatralog' do
-
- return File.open('./log/sinatra.log').read
-
-end
-
-
-
-
 
