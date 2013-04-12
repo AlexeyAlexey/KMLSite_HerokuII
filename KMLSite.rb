@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
-
+disable :protection
 set :root, './'
 set :app_file, __FILE__
 
@@ -92,7 +92,7 @@ post '/input' do
  content_type 'application/JSON'
  attachment 'JSON'
  
- 
+#print "\n\n", jsonDate["error"], "\n\n"
 
  if jsonDate["error"]
    then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
