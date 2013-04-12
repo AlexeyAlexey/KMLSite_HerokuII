@@ -70,7 +70,7 @@ post '/input' do
  end
 
 
- view_url = 'http://jgps.me/l/tokentokentoken'
+ view_url = nil#'http://jgps.me/l/tokentokentoken'
 
 
  message = lambda do |time, view_url, error|              
