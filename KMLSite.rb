@@ -93,14 +93,17 @@ post '/input' do
  attachment 'JSON'
  
 #print "\n\n", jsonDate["error"], "\n\n"
+begin    
+ if jsonDate["error"]
+   then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
+ end 
+rescue => ex # ссылается на обрабатываемый объект Exception
+   return "#{ex.class}: #{ex.message}"
+end
 
- #if jsonDate["error"]
-  # then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
- #end 
-
- #if !jsonDate["found"] 
-   #then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
- #end 
+ if !jsonDate["found"] 
+   then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
+ end 
 
  data = jsonDate["data"]
  dateGPS = GpsDate.new do |gps|
