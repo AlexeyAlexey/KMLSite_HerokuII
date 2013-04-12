@@ -78,27 +78,6 @@ post '/input' do
  if jsonDate["t"].is_a? Array
    then jsonDate["t"] = jsonDate["t"][0]
  end
-<<-EOF
-require 'pony'
-    Pony.mail(
-      :from => 'ialexey.kondratenko@gmail.com',
-      :to => 'alexey.kondratenko@mail.ru',
-      :subject => 'heroku',
-      :body => jsonDate,
-      :port => '587',
-      :via => :smtp,
-      :via_options => { 
-        :address              => 'smtp.gmail.com', 
-        :port                 => '587', 
-        :enable_starttls_auto => true, 
-        :user_name            => 'ialexey.kondratenko', 
-        :password             => '1828alexey', 
-        :authentication       => :plain, 
-        :domain               => 'gmail.com'
-      })
-EOF   
-
-
  
 
  view_url = nil#'http://jgps.me/l/tokentokentoken'
