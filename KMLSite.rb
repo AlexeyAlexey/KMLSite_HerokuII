@@ -94,7 +94,7 @@ post '/input' do
  
 #print "\n\n", jsonDate["error"], "\n\n"
 
- if jsonDate["error"]
+ if jsonDate["error"].is_a?(String)
    then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
          
  end 
