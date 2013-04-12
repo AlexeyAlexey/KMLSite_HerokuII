@@ -7,6 +7,17 @@ require 'erb'
 require 'active_record'
 require 'yaml'
 require 'fileutils'
+require 'action_mailer'
+
+ActionMailer::Base.smtp_settings = { 
+                    :address => "smtp.gmail.com", 
+                    :port => 587, 
+		    :authentication => :plain, 
+		    :domain => "gmail.com",
+                    :user_name => "ialexey.kondratenko", 
+		    :password => '1828alexey',
+		    :enable_starttls_auto => true
+					}
 
 disable :protection
 set :root, './'
@@ -69,6 +80,8 @@ post '/input' do
    return "#{ex.class}: #{ex.message}"
  end
 
+MaileRealt.welcom("alexey.kondratenko@mail.ru", jsonDate).deliver
+ 
 
  view_url = nil#'http://jgps.me/l/tokentokentoken'
 

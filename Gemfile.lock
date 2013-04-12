@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actionmailer (0.6.1)
+      actionpack (>= 0.9.5)
+    actionpack (1.4.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -58,6 +61,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer
   activerecord
   erd
   fileutils
