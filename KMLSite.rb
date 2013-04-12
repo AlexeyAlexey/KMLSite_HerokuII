@@ -8,7 +8,7 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 #require 'rack/websocket'
-set :static_cache_control, [:public, max_age: 0]
+
 set :root, './'
 set :app_file, __FILE__
 
@@ -87,39 +87,8 @@ get '/' do
 end
 
 
-get '/get/cord.kml' do
-
-   constCountR = 10
-   countR = GpsDate.count  
-   
-
-        if  countR < constCountR
-          then constCountR = countR
-        end    
-            
-        @gpsData = GpsDate.last(constCountR) 
-        @markEndPoint = GpsDate.last
-
-        strERB = File.open('./public/kml_kml.erb', File::RDONLY).read
-        strBody = ERB.new strERB 
-        
-        #content_type 'application/vnd.google-earth.kml+xml', :charset => 'utf-8'
-        headers 'Content-Type' => "application/vnd.google-earth.kml+xml;charset=utf-8" 
-        #attachment 'cord.kml'        
-        strBody.result(binding) 
-        
-#erb :kml, :layout => false, :locals => {:gpsData => @gpsData, :markEndPoint => @markEndPoint}
-
-#send_file "response", 
-#         :filename => 'kml', 
-#        :type => 'application/vnd.google-earth.kml+xml',
-#       :disposition => 'attachment'
-             
-end
-
-
 get '/kml' do
-
+cache_control :no_cash
 constCountR = 10
    countR = GpsDate.count  
    
