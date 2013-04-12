@@ -14,7 +14,7 @@ set :app_file, __FILE__
 
 
 error do
-  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+  'Sorry there was a nasty error - ' #+ env['sinatra.error'].name
 end
 
 not_found do
