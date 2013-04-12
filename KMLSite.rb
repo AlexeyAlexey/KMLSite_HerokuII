@@ -98,9 +98,9 @@ post '/input' do
   # then return body= message.call(jsonDate["data"]["t"], view_url, jsonDate["error"])
  #end 
 
- if !jsonDate["found"] 
-   then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
- end 
+ #if !jsonDate["found"] 
+   #then return body= message.call(jsonDate["data"]["t"], view_url, "sometimes false, then no data")
+ #end 
 
  data = jsonDate["data"]
  dateGPS = GpsDate.new do |gps|
