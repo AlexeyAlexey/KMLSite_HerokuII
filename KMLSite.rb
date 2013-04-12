@@ -114,8 +114,8 @@ post '/input' do
  dataFix = Time.now.to_i
  dateGPS = GpsDate.new do |gps|
    gps.al_z     = jsonDate["al"].to_f
-   gps.l_x      = jsonDate["ll"][0].to_f
-   gps.l_y      = jsonDate["ll"][1].to_f
+   gps.l_x      = jsonDate["ll"][1].to_f
+   gps.l_y      = jsonDate["ll"][0].to_f
    gps.t        = jsonDate["t"].to_i
    gps.t_i      = dataFix
    gps.al       = jsonDate["al"].to_f
