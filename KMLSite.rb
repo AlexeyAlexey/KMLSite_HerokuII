@@ -1,7 +1,5 @@
 require 'rubygems'
 require "sinatra"
-#require 'sinatra/base'
-#require 'sinatra/contrib/all'
 require 'json'
 require 'erb'
 require 'active_record'
@@ -110,6 +108,12 @@ post '/input' do
  if jsonDate.has_key?("found") 
    then return body= message.call(jsonDate["t"], view_url, "sometimes false, then no data")
  end 
+ 
+ countR = GpsDate.count
+ 
+ if countR > 100
+   then GpsDate.find(:all,:limit => (countR-2)).each{|r| r.delete}
+ end
 
  dataFix = Time.now.to_i
  dateGPS = GpsDate.new do |gps|
