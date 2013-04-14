@@ -135,16 +135,14 @@ post '/input' do
        gps.va       = jsonDate["va"].to_f   
     end
 
+    begin
+       dateGPS.save
+    rescue => ex # ссылается на обрабатываемый объект Exception
+       return "#{ex.class}: #{ex.message}"
+    end
+
  end
 
-
-
-
-begin
-   dateGPS.save
- rescue => ex # ссылается на обрабатываемый объект Exception
-   return "#{ex.class}: #{ex.message}"
- end
 
 return body = message.call(jsonDate["t"], view_url, nil)
 #Get json with coordinate
