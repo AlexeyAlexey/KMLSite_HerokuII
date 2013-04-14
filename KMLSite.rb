@@ -6,9 +6,6 @@ require 'active_record'
 require 'yaml'
 require 'fileutils'
 
-
-
-
 disable :protection
 set :root, './'
 set :app_file, __FILE__
@@ -114,23 +111,24 @@ post '/input' do
  if countR > 100
    then GpsDate.find(:all,:limit => (countR-2)).each{|r| r.delete}
  end
+#Client.where(:first_name => 'Andy').first_or_create(:locked => false)
+#Client.where("created_at >= :start_date AND created_at <= :end_date",
+#  {:start_date => params[:start_date], :end_date => params[:end_date]})
 
  dataFix = Time.now.to_i
- dateGPS = GpsDate.new do |gps|
-   gps.al_z     = jsonDate["al"].to_f
-   gps.l_x      = jsonDate["ll"][1].to_f
-   gps.l_y      = jsonDate["ll"][0].to_f
-   gps.t        = jsonDate["t"].to_i
-   gps.t_i      = dataFix
-   gps.al       = jsonDate["al"].to_f
-   gps.vv_0     = jsonDate["vv"][0].to_f
-   gps.vv_1     = jsonDate["vv"][1].to_f
-   gps.ha       = jsonDate["ha"].to_f
-   gps.va       = jsonDate["va"].to_f   
- end
-
 begin
-   dateGPS.save
+  GpsDate.where("t = :t AND l_x = :l_x AND l_y = :l_y", {:t   => jsonDate["t"].to_i,
+                                                         :l_x => jsonDate["ll"][1].to_f,
+                                                         :l_y => jsonDate["ll"][0].to_f
+                                                        }
+             ).first_or_create(:al_z     = jsonDate["al"].to_f,
+                               :t_i      = dataFix,
+                               :al       = jsonDate["al"].to_f,
+                               :vv_0     = jsonDate["vv"][0].to_f,
+                               :vv_1     = jsonDate["vv"][1].to_f,
+                               :ha       = jsonDate["ha"].to_f,
+                               :va       = jsonDate["va"].to_f 
+                              )
  rescue => ex # ссылается на обрабатываемый объект Exception
    return "#{ex.class}: #{ex.message}"
  end
