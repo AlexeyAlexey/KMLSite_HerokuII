@@ -12,10 +12,7 @@ def up
        t.float   :vv_1,     :default => 0,  :null => false
        t.string  :ha
        t.string  :va
-       t.integer :t_i_date, :limit => 11,   :null => false
-       t.integer :date_fix, :limit => 11,   :null => false
-
-
+       
    end
 end
 
