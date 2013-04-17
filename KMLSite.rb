@@ -115,32 +115,32 @@ post '/input' do
  dataFdb = GpsDate.last.t_i
  intervalTimes = 600 #seconds
 
- if (dataFix - dataFdb) > intervalTimes
+ if (dataFix - dataFdb) < intervalTimes
    then
        if (dataFix - dataFdb) < 0 
          then return body= message.call(jsonDate["t"], view_url, "(dataFix - dataFdb) < 0 line 121")
        end
       
-    dateGPS = GpsDate.new do |gps|
-       gps.al_z     = jsonDate["al"].to_f
-       gps.l_x      = jsonDate["ll"][1].to_f
-       gps.l_y      = jsonDate["ll"][0].to_f
-       gps.t        = jsonDate["t"].to_i
-       gps.t_i      = dataFix
-       gps.al       = jsonDate["al"].to_f
-       gps.vv_0     = jsonDate["vv"][0].to_f
-       gps.vv_1     = jsonDate["vv"][1].to_f
-       gps.ha       = jsonDate["ha"].to_f
-       gps.va       = jsonDate["va"].to_f   
-    end
+       dateGPS = GpsDate.new do |gps|
+          gps.al_z     = jsonDate["al"].to_f
+          gps.l_x      = jsonDate["ll"][1].to_f
+          gps.l_y      = jsonDate["ll"][0].to_f
+          gps.t        = jsonDate["t"].to_i
+          gps.t_i      = dataFix
+          gps.al       = jsonDate["al"].to_f
+          gps.vv_0     = jsonDate["vv"][0].to_f
+          gps.vv_1     = jsonDate["vv"][1].to_f
+          gps.ha       = jsonDate["ha"].to_f
+          gps.va       = jsonDate["va"].to_f   
+       end
 
-    begin
-       dateGPS.save
-    rescue => ex # ссылается на обрабатываемый объект Exception
-       return "#{ex.class}: #{ex.message}"
-    end
+       begin
+          dateGPS.save
+       rescue => ex # ссылается на обрабатываемый объект Exception
+          return "#{ex.class}: #{ex.message}"
+       end
 
- end
+ end#if (dataFix - dataFdb) < intervalTimes
 
 
 return body = message.call(jsonDate["t"], view_url, nil)
@@ -149,4 +149,12 @@ return body = message.call(jsonDate["t"], view_url, nil)
 #get http://mine-track.appspot.com/get/kml
 
 end
+
+after do
+  ActiveRecord::Base.connection.close
+end
+
+
+
+
 
