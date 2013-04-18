@@ -115,7 +115,7 @@ post '/input' do
  dataFdb = GpsDate.last.t_i
  intervalTimes = 600 #seconds
 
- if (dataFix - dataFdb) < intervalTimes
+ if (dataFix - dataFdb) > intervalTimes
    then
        if (dataFix - dataFdb) < 0 
          then return body= message.call(jsonDate["t"], view_url, "(dataFix - dataFdb) < 0 line 121")
