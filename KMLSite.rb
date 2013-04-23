@@ -79,7 +79,7 @@ post '/input' do
 
  message = lambda do |time, view_url, error|              
               
-              h = {"fix_tlist" => time}
+              h = {"fix_tlist" => [time]}
 
               if view_url
                 then h["meta"] = {"view_url" => view_url}
