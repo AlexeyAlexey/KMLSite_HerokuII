@@ -113,7 +113,7 @@ post '/input' do
 
  dataFix = Time.now.to_i
  dataFdb = GpsDate.last.t_i
- intervalTimes = 600 #seconds
+ intervalTimes = 10 #seconds
 
  if (dataFix - dataFdb) > intervalTimes
    then
