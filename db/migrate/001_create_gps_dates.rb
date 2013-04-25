@@ -18,7 +18,7 @@ end
 
 
 def down
-   drop_table :system_settings
+   drop_table :gps_dates
 end
 
 end
