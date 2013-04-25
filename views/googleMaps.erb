@@ -8,7 +8,7 @@
      #map_canvas { height: 100% }
     </style>
     <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBcw0VJvFR0vjHkLBvrGxiWN_Dj2HDcuFw&sensor=false">
+      src="http://maps.googleapis.com/maps/api/js?key=xxxxxxx&sensor=false">
     </script>
     <script type="text/javascript">
       function initialize() {
@@ -19,7 +19,7 @@
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         
-        var ctaLayer = new google.maps.KmlLayer('http://gentle-hollows-7316.herokuapp.com/kml2');
+        var ctaLayer = new google.maps.KmlLayer('http://xxxxxxx.herokuapp.com/kml2');
         ctaLayer.setMap(map);
       }
     </script>
