@@ -1,0 +1,20 @@
+App for view gps data that posted by jlt (https://github.com/jettero/jlt)
+
+App have three main routes:
+   - get '/'
+   - post '/input'
+   - get '/kml2'
+
+  get '/' - retrieve page with google map (https://developers.google.com/maps/documentation/javascript/tutorial)
+  
+  post '/input' - accepts the data enclosed in the request message's body for storage 
+GPS coordinates. Structure the data:
+{"t"=>1365797796000, "ll"=>[48.563452, 39.314097], "ha"=>24, "va"=>0, "al"=>0, "vv"=>[0, 0]}
+  message - variable for storage response from "post '/input'". 
+For more information http://db.jgps.me/protocol#input
+
+  get '/kml2' - retrieve the KML file (./views/kml_kml.erb).
+
+References:
+https://github.com/jettero/jlt
+http://db.jgps.me/protocol#input

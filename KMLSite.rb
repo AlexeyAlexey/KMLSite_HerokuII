@@ -111,8 +111,8 @@ post '/input' do
    then GpsDate.find(:all,:limit => (countR-2)).each{|r| r.delete}
  end
 
- dataFix = Time.now.to_i
- dataFdb = GpsDate.last.t_i
+ dataFix = Time.now.to_i    #
+ dataFdb = GpsDate.last.t_i # data fix
  intervalTimes = 10 #seconds
 
  if (dataFix - dataFdb) > intervalTimes
