@@ -19,7 +19,7 @@ not_found do
   'This is nowhere to be found.'
 end
 
-ActiveRecord::Base.establish_connection "mysql2://b2de1d2c131a92:ed316f52@us-cdbr-east-03.cleardb.com/heroku_bd8015972428027"  
+ActiveRecord::Base.establish_connection "mysql2://"  
   
 class GpsDate < ActiveRecord::Base
 end
